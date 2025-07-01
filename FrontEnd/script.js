@@ -1,6 +1,7 @@
 fetch("http://localhost:5678/api/works")
   .then((response) => response.json())
   .then((data) => {
+    // création des projets depuis API
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = "";
     data.forEach((work) => {
@@ -13,4 +14,20 @@ fetch("http://localhost:5678/api/works")
       titleWork.innerText = work.title;
       projet.appendChild(titleWork);
     });
+    // récupérer les filtres éxistants
+    const filtersName = new Set();
+    data.forEach((filter) => {
+      filtersName.add(filter.category.name);
+    });
+    // Création des filtres
+
+    const filters = document.querySelector(".filterBox");
+
+    filtersName.forEach((button) => {
+      const filterBtn = document.createElement("button");
+      filterBtn.innerText = button;
+      filters.appendChild(filterBtn);
+    });
+
+    // Function de filtrage
   });
