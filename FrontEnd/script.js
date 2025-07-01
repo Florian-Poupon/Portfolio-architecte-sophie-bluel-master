@@ -3,7 +3,6 @@ fetch("http://localhost:5678/api/works")
   .then((data) => {
     // création des projets depuis API
     const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = "";
     data.forEach((work) => {
       const projet = document.createElement("figure");
       gallery.appendChild(projet);
@@ -12,6 +11,7 @@ fetch("http://localhost:5678/api/works")
       projet.appendChild(imgWork);
       const titleWork = document.createElement("figcaption");
       titleWork.innerText = work.title;
+      projet.setAttribute("data-category", work.category.name);
       projet.appendChild(titleWork);
     });
     // récupérer les filtres éxistants
@@ -22,6 +22,12 @@ fetch("http://localhost:5678/api/works")
     // Création des filtres
 
     const filters = document.querySelector(".filterBox");
+    filters.innerHTML = "";
+    // button "tous"
+    const allBtn = document.createElement("button");
+    allBtn.innerText = "Tous";
+    allBtn.classList.add("active");
+    filters.appendChild(allBtn);
 
     filtersName.forEach((button) => {
       const filterBtn = document.createElement("button");
@@ -30,4 +36,26 @@ fetch("http://localhost:5678/api/works")
     });
 
     // Function de filtrage
+    const projets = document.querySelectorAll(".gallery figure");
+    const filterButtons = document.querySelectorAll(".filterBox button");
+    filterButtons.forEach((buttonClick) => {
+      buttonClick.addEventListener("click", (e) => {
+        // 1. Enlève la classe active à tous les boutons
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        // 2. Ajoute la classe active au bouton cliqué
+        e.target.classList.add("active");
+        //
+        const filtre = e.target.textContent;
+        projets.forEach((projet) => {
+          if (filtre === "Tous" || projet.dataset.category === filtre) {
+            projet.style.display = "";
+          } else {
+            projet.style.display = "none";
+          }
+        });
+        console.log(filtre);
+      });
+    });
+
+    //
   });
