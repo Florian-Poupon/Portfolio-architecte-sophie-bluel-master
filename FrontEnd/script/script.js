@@ -66,9 +66,19 @@ if (localStorage.getItem("token")) {
   edition.forEach((editButton) => {
     editButton.style.display = "block";
   });
+  document.getElementById("login").style.display = "none";
+  document.getElementById("logout").style.display = "block";
 } else {
   // Cache les boutons si pas connecté
   edition.forEach((editButton) => {
     editButton.style.display = "none";
   });
+  document.getElementById("login").style.display = "block";
+  document.getElementById("logout").style.display = "none";
 }
+
+const logout = document.getElementById("logout");
+logout.addEventListener("click", () => {
+  localStorage.removeItem("token");
+  window.location.reload();
+});

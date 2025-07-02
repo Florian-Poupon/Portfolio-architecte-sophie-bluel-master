@@ -131,15 +131,19 @@ table {
 body {
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
-  max-width: 1140px;
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
 }
-main {
-  flex: 1;
+main,
+header,
+footer {
+  max-width: 1140px;
+  width: 100%;
 }
+
 header {
   display: flex;
   justify-content: space-between;
@@ -182,6 +186,9 @@ nav li {
 
 li:hover {
   color: #b1663c;
+  cursor: pointer;
+  font-weight: 700;
+  color: black;
 }
 #introduction {
   display: flex;
@@ -208,7 +215,6 @@ li:hover {
 }
 #portfolio h2 {
   text-align: center;
-  margin-bottom: 1em;
 }
 .gallery {
   width: 100%;
@@ -347,16 +353,65 @@ main {
   color: black;
 }
 
-.edition {
-  display: none;
-  width: 100%;
-  height: 100px;
-  color: white;
-  background-color: black;
-}
-
 .error {
   display: none;
   color: red;
   text-align: center;
+}
+
+/* Mode edition  */
+.edition {
+  display: block;
+  width: 100%;
+  height: 59px;
+  color: white;
+  background-color: black;
+  align-content: center;
+  text-align: center;
+  font-family: work sans;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+i {
+  font-size: 15px;
+  padding: 0.5em;
+}
+
+#login {
+  display: block;
+}
+
+#logout {
+  display: none;
+}
+
+#mesProjets {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.modifier {
+  position: absolute;
+  margin-left: 25em;
+  display: block;
+  align-content: center;
+  text-align: center;
+  font-family: work sans;
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+  border: none;
+}
+
+.modifier:hover {
+  font-weight: 700;
+  color: black;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
