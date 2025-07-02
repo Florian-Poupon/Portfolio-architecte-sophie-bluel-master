@@ -129,10 +129,16 @@ table {
 }
 /** end reset css**/
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   max-width: 1140px;
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
+}
+main {
+  flex: 1;
 }
 header {
   display: flex;
@@ -271,7 +277,7 @@ footer nav ul {
   gap: 1em;
 }
 
-.filterBox button {
+button {
   border: solid 1px #1d6154;
   color: #1d6154;
   background-color: white;
@@ -281,8 +287,61 @@ footer nav ul {
   padding: 0.5em 1em;
   font-family: "Syne";
 }
-.filterBox button:hover,
-.filterBox button.active {
+button:hover,
+button.active {
   color: white;
   background-color: #1d6154;
+}
+
+/* login */
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#login form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3em;
+}
+
+#login div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+#login h2 {
+  text-align: center;
+}
+#login label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-family: work sans;
+  font-weight: 500;
+  line-height: 100%;
+}
+#login input {
+  height: 50px;
+  width: 379px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#login button {
+  color: white;
+  background-color: #1d6154;
+  padding: 0.6em 3em;
+  width: fit-content;
+}
+#login button:hover {
+  background-color: #0e2f28;
+}
+
+#login a {
+  color: black;
 }
