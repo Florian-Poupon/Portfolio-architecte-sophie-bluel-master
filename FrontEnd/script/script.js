@@ -56,6 +56,19 @@ fetch("http://localhost:5678/api/works")
         console.log(filtre);
       });
     });
-
-    //
   });
+
+// mode édition
+const edition = document.querySelectorAll(".edition");
+
+if (localStorage.getItem("token")) {
+  // Affiche les boutons .edition
+  edition.forEach((editButton) => {
+    editButton.style.display = "block";
+  });
+} else {
+  // Cache les boutons si pas connecté
+  edition.forEach((editButton) => {
+    editButton.style.display = "none";
+  });
+}
