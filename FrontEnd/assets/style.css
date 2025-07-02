@@ -397,7 +397,7 @@ i {
 }
 
 .modifier {
-  position: absolute;
+  position: static;
   margin-left: 25em;
   display: block;
   align-content: center;
