@@ -338,13 +338,15 @@ main {
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#login button {
+#login button,
+.addProject {
   color: white;
   background-color: #1d6154;
   padding: 0.6em 3em;
   width: fit-content;
 }
-#login button:hover {
+#login button:hover,
+.addProject:hover {
   background-color: #0e2f28;
   cursor: pointer;
 }
@@ -387,7 +389,6 @@ i {
 }
 
 #mesProjets {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -396,7 +397,7 @@ i {
 }
 
 .modifier {
-  position: absolute;
+  position: static;
   margin-left: 25em;
   display: block;
   align-content: center;
@@ -413,5 +414,110 @@ i {
   color: black;
   border: none;
   background: none;
+  cursor: pointer;
+}
+
+/* modale edition */
+
+/* #modalEdition {
+  display: none;
+} */
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background: #0000004d;
+  z-index: 10;
+}
+
+.modal {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+
+  background: white;
+  padding: 2em 4em;
+  border-radius: 10px;
+  box-sizing: border-box;
+
+  top: 50%;
+  left: 50%;
+  max-width: 630px;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+
+  font-size: 26px;
+  font-family: work sans;
+  text-align: center;
+}
+
+#closeModal {
+  position: absolute;
+  border: none;
+  color: black;
+  right: 20px;
+  top: 20px;
+  font-size: 12px;
+}
+
+#closeModal:hover {
+  color: black;
+  background-color: white;
+  cursor: pointer;
+}
+.modal hr {
+  height: 1px;
+  width: 100%;
+  background-color: #b3b3b3;
+  border: none;
+}
+
+.galleryModal {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1em 0.3em;
+}
+
+.galleryModal figure {
+  position: relative;
+}
+.galleryModal img {
+  height: auto;
+  width: 100%;
+}
+
+.deleteProject {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  display: flex;
+  border-radius: 2px;
+  border: none;
+  background-color: black;
+  color: white;
+  width: 17px;
+  height: 17px;
+
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteProject i {
+  font-size: 11px;
+}
+
+.deleteProject:hover {
+  background-color: black;
+  color: white;
   cursor: pointer;
 }

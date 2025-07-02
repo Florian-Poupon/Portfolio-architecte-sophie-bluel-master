@@ -10,10 +10,26 @@
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="script/modal.js" defer></script>
 
     <script src="script/script.js" defer></script>
   </head>
   <body>
+    <!-- modal edition -->
+<div id="modalEdition">
+    <div id="overlay" class="closeModal">
+
+    </div>
+  <div class="modal">
+    <button id="closeModal" class="closeModal">X</button>
+
+      <p>Galerie photo</p>
+    <div class="galleryModal"></div>
+    <hr>
+    <button class="addProject">Ajouter une photo</button>
+  </div>
+</div>
+
     <!-- mode edition -->
     <div class="edition"><i class="fa-regular fa-pen-to-square"></i>Mode édition</div>
     <!-- header -->
