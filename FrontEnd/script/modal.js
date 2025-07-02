@@ -33,15 +33,3 @@ closeModal.forEach((close) => {
     modalEdition.style.display = "none";
   });
 });
-
-//   delete project
-//   const deleteProject = document.querySelectorAll(".deleteProject");
-//   deleteProject.forEach((deleteBtn) => {
-//     deleteBtn.addEventListener("click", (e) => {
-//       const id = e.target.parentElement.dataset.id;
-//       fetch("http://localhost:5678/api/works/" + id, {
-//         method: "DELETE",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       })
