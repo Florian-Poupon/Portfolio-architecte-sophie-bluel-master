@@ -69,7 +69,7 @@ if (localStorage.getItem("token")) {
   document.getElementById("login").style.display = "none";
   document.getElementById("logout").style.display = "block";
 } else {
-  // Cache les boutons si pas connecté
+  // Cache les boutons si pas logout
   edition.forEach((editButton) => {
     editButton.style.display = "none";
   });
