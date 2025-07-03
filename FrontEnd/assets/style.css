@@ -179,13 +179,16 @@ nav ul {
   align-items: center;
   list-style-type: none;
 }
-nav li {
+nav li,
+nav li a {
+  color: black;
   padding: 0 10px;
-  font-size: 1.2em;
+  font-size: 16px;
+  text-decoration: none;
 }
 
-li:hover {
-  color: #b1663c;
+li:hover,
+li a:hover {
   cursor: pointer;
   font-weight: 700;
   color: black;
@@ -327,7 +330,7 @@ main {
 #login label {
   display: block;
   margin-bottom: 0.5em;
-  font-family: work sans;
+  font-family: Work sans;
   font-weight: 500;
   line-height: 100%;
 }

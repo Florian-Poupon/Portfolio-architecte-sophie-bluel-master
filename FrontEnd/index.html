@@ -10,23 +10,22 @@
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <script src="script/modal.js" defer></script>
-
+    <script src="script/add-project.js" defer></script>
     <script src="script/script.js" defer></script>
   </head>
   <body>
     <!-- modal edition -->
-<div id="modalEdition">
-    <div id="overlay" class="closeModal"> </div>
-  <div class="modal">
-    <button id="closeModal" class="closeModal">X</button>
+    <div id="modalEdition">
+      <div id="overlay" class="closeModal"></div>
+      <div class="modal">
+        <button id="closeModal" class="closeModal">X</button>
 
-      <p>Galerie photo</p>
-    <div class="galleryModal"></div>
-    <hr>
-    <button class="addProject">Ajouter une photo</button>
-  </div>
-</div>
+        <p>Galerie photo</p>
+        <div class="galleryModal"></div>
+        <hr />
+        <button class="addProject">Ajouter une photo</button>
+      </div>
+    </div>
 
     <!-- mode edition -->
     <div class="edition"><i class="fa-regular fa-pen-to-square"></i>Mode édition</div>
@@ -35,9 +34,9 @@
       <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
       <nav>
         <ul>
-          <li>projets</li>
-          <li>contact</li>
-          <li id="login">login</li>
+          <li><a href="#portfolio">projets</a></li>
+          <li><a href="#contact">contact</a></li>
+          <li id="login"><a href="login.html">login</a></li>
           <li id="logout">logout</li>
           <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
         </ul>
@@ -60,10 +59,8 @@
       </section>
       <section id="portfolio">
         <div id="mesProjets">
-
           <h2>Mes Projets</h2>
           <button class="modifier"><i class="fa-regular fa-pen-to-square"></i>Modifier</button>
-        </div>
         </div>
         <div class="filterBox"><button>Tous</button></div>
         <div class="gallery"></div>
