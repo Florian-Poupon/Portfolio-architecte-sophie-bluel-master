@@ -255,6 +255,13 @@ function modalAjoutPhoto() {
 // Envoyer un projet vers l'api / Submit
 function submitForm() {
   const submitForm = document.querySelector("#ajoutPhoto form");
+  const imagePreview = document.getElementById("imagePreview");
+  const photopreview = document.getElementById("photo-upload-preview");
+  const uploadImage = document.querySelector(".photo-upload");
+  const titleInput = submitForm.querySelector('input[type="text"]');
+  const fileInput = submitForm.querySelector('.photo-upload input[type="file"]');
+  const btnValidate = submitForm.querySelector(".btn-validate");
+
   submitForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -281,6 +288,13 @@ function submitForm() {
       .then((data) => {
         mainGallery();
         modal(); // recharge la modale après ajout
+        imagePreview.src = "";
+        imagePreview.style.display = "none";
+        photopreview.style.display = "none";
+        uploadImage.style.display = "flex";
+        titleInput.value = "";
+        fileInput.value = "";
+        btnValidate.disabled = true;
       })
       .catch((err) => {
         alert("Erreur lors de l'envoi du projet.");
