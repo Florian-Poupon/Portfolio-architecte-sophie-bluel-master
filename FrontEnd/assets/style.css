@@ -438,12 +438,13 @@ i {
   z-index: 10;
 }
 
-.modal {
+.modal,
+#ajoutPhoto {
   position: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2em;
+  gap: 1.5em;
 
   background: white;
   padding: 2em 4em;
@@ -452,7 +453,7 @@ i {
 
   top: 50%;
   left: 50%;
-  max-width: 630px;
+  width: 630px;
   transform: translate(-50%, -50%);
   z-index: 100;
 
@@ -461,21 +462,38 @@ i {
   text-align: center;
 }
 
-#closeModal {
+#closeModal,
+#backModal {
   position: absolute;
   border: none;
   color: black;
-  right: 20px;
   top: 20px;
+}
+#closeModal {
+  right: 20px;
+}
+
+#closeModal i {
   font-size: 12px;
 }
 
-#closeModal:hover {
+#backModal {
+  left: 20px;
+  padding: 0.5em 0 0 1em;
+}
+#backModal i {
+  padding: 0;
+  font-size: 21px;
+}
+
+#closeModal:hover,
+#backModal:hover {
   color: black;
   background-color: white;
   cursor: pointer;
 }
-.modal hr {
+.modal hr,
+#ajoutPhoto hr {
   height: 1px;
   width: 100%;
   background-color: #b3b3b3;
@@ -523,4 +541,111 @@ i {
   background-color: black;
   color: white;
   cursor: pointer;
+}
+
+/* form ajout photo */
+#ajoutPhoto {
+  display: none;
+}
+
+#ajoutPhoto form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+  text-align: start;
+}
+
+.photo-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #e8edf1;
+  border-radius: 3px;
+  text-align: center;
+  padding: 20px;
+  gap: 10px;
+}
+
+#imagePreview {
+  display: none;
+  max-width: 100%;
+  max-height: 200px;
+  margin: auto;
+  margin-bottom: 1em;
+  border-radius: 10px;
+}
+.icon-photo i {
+  font-size: 76px;
+  color: #b9c5cc;
+  padding: 0;
+}
+
+.btn-photo {
+  display: inline-block;
+  margin: 0 auto 6px auto;
+  padding: 8px 28px;
+  background: #cbd6dc;
+  color: #306685;
+  border-radius: 24px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+.btn-photo:hover {
+  background: #b4bfcf;
+}
+
+.photo-info {
+  font-size: 12px;
+  color: #444444;
+}
+
+.infos {
+  display: flex;
+  flex-direction: column;
+}
+
+.infos label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+#ajoutPhoto form input[type="text"],
+#ajoutPhoto form select {
+  display: block;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+  padding: 20px;
+  font: 16px;
+  border: none;
+  box-sizing: border-box;
+}
+
+#ajoutPhoto .btn-validate {
+  margin: auto;
+  background: #a7a7a7;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  width: 70%;
+  padding: 12px 0;
+  cursor: not-allowed;
+  opacity: 0.7;
+  transition: background 0.2s;
+}
+
+#ajoutPhoto .btn-validate:enabled {
+  background: #1d6154;
+  cursor: pointer;
+  opacity: 1;
 }

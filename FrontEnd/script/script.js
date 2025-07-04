@@ -89,7 +89,7 @@ function edition() {
   });
 }
 
-// modale modification
+// modale galerie
 function modal() {
   fetch("http://localhost:5678/api/works")
     .then((response) => response.json())
@@ -147,6 +147,7 @@ const openModal = document.querySelector(".modifier");
 openModal.addEventListener("click", () => {
   modal();
   document.getElementById("modalEdition").style.display = "block";
+  document.querySelector(".modal").style.display = "flex";
 });
 
 // close modal
@@ -154,7 +155,31 @@ const closeModal = document.querySelectorAll(".closeModal");
 closeModal.forEach((close) => {
   close.addEventListener("click", () => {
     document.getElementById("modalEdition").style.display = "none";
+    document.querySelector(".modal").style.display = "none";
+    document.getElementById("ajoutPhoto").style.display = "none";
   });
+});
+
+function catModal() {
+  // catégories modale
+  const modalCategories = document.querySelector(".modalCategories");
+  fetch("http://localhost:5678/api/categories")
+    .then((response) => response.json())
+    .then((data) => {
+      modalCategories.innerHTML = "";
+      data.forEach((category) => {
+        const option = document.createElement("option");
+        option.value = category.id;
+        option.innerText = category.name;
+        modalCategories.appendChild(option);
+      });
+    });
+}
+
+const arrowback = document.querySelector(".arrowback");
+arrowback.addEventListener("click", () => {
+  document.getElementById("ajoutPhoto").style.display = "none";
+  document.querySelector(".modal").style.display = "flex";
 });
 
 mainGallery();

@@ -17,13 +17,49 @@
     <!-- modal edition -->
     <div id="modalEdition">
       <div id="overlay" class="closeModal"></div>
+      <!-- modal -->
       <div class="modal">
         <button id="closeModal" class="closeModal">X</button>
-
+        <!-- galerie photo   -->
         <p>Galerie photo</p>
         <div class="galleryModal"></div>
         <hr />
         <button class="addProject">Ajouter une photo</button>
+      </div>
+      <!-- modal ajouter une photo -->
+      <div id="ajoutPhoto">
+        <button id="backModal" class="arrowback"><i class="fa-solid fa-arrow-left"></i></button>
+        <button id="closeModal" class="closeModal">X</button>
+        <p>Ajout photo</p>
+        <form>
+          <div id="photo-upload-preview">
+            <img id="imagePreview" src="" alt="aperçut de la photo" />
+          </div>
+          <div class="photo-upload">
+            <div class="icon-photo"><i class="fa-regular fa-image"></i></div>
+
+            <label class="btn-photo">
+              + Ajouter photo
+              <input type="file" accept=".jpg,.jpeg,.png" style="display: none" />
+            </label>
+            <div class="photo-info">jpg, png : 4mo max</div>
+          </div>
+          <div class="infos">
+            <label>
+              Titre
+              <input type="text" required />
+            </label>
+            <label>
+              Catégorie
+              <select class="modalCategories" required>
+                <option value="">Choisir une catégorie</option>
+                <!-- generer les options -->
+              </select>
+            </label>
+          </div>
+          <hr />
+          <button type="submit" class="btn-validate" disabled>Valider</button>
+        </form>
       </div>
     </div>
 
