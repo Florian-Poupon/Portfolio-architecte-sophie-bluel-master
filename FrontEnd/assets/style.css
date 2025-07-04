@@ -330,7 +330,7 @@ main {
 #login label {
   display: block;
   margin-bottom: 0.5em;
-  font-family: Work sans;
+  font-family: "Work sans";
   font-weight: 500;
   line-height: 100%;
 }
@@ -373,7 +373,7 @@ main {
   background-color: black;
   align-content: center;
   text-align: center;
-  font-family: work sans;
+  font-family: "Work sans";
   font-size: 16px;
   font-weight: 400;
 }
@@ -405,7 +405,7 @@ i {
   display: block;
   align-content: center;
   text-align: center;
-  font-family: work sans;
+  font-family: "Work sans";
   font-size: 16px;
   font-weight: 400;
   color: black;
@@ -458,22 +458,22 @@ i {
   z-index: 100;
 
   font-size: 26px;
-  font-family: work sans;
+  font-family: "Work sans";
   text-align: center;
 }
 
-#closeModal,
+.closeModal,
 #backModal {
   position: absolute;
   border: none;
   color: black;
   top: 20px;
 }
-#closeModal {
+.closeModal {
   right: 20px;
 }
 
-#closeModal i {
+.closeModal i {
   font-size: 12px;
 }
 
@@ -486,7 +486,7 @@ i {
   font-size: 21px;
 }
 
-#closeModal:hover,
+.closeModal:hover,
 #backModal:hover {
   color: black;
   background-color: white;
