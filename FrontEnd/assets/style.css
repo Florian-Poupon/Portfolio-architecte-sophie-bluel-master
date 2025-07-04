@@ -567,6 +567,22 @@ i {
   gap: 10px;
 }
 
+#photo-upload-preview {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background: #e8edf1;
+  border-radius: 3px;
+  height: 169px;
+  overflow: hidden;
+  justify-content: center;
+}
+
+#photo-upload-preview img {
+  margin: 0;
+  object-fit: contain;
+}
+
 #imagePreview {
   display: none;
   max-width: 100%;

@@ -1,3 +1,4 @@
+// récupération des projets dans la page
 function mainGallery() {
   fetch("http://localhost:5678/api/works")
     .then((response) => response.json())
@@ -89,7 +90,27 @@ function edition() {
   });
 }
 
-// modale galerie
+// modale ouverture/fermeture
+function modalDisplay() {
+  // open modal
+  const openModal = document.querySelector(".modifier");
+  openModal.addEventListener("click", () => {
+    modal();
+    document.getElementById("modalEdition").style.display = "block";
+    document.querySelector(".modal").style.display = "flex";
+  });
+  // close modal
+  const closeModal = document.querySelectorAll(".closeModal");
+  closeModal.forEach((close) => {
+    close.addEventListener("click", () => {
+      document.getElementById("modalEdition").style.display = "none";
+      document.querySelector(".modal").style.display = "none";
+      document.getElementById("ajoutPhoto").style.display = "none";
+    });
+  });
+}
+
+// modale principale
 function modal() {
   fetch("http://localhost:5678/api/works")
     .then((response) => response.json())
@@ -117,70 +138,156 @@ function modal() {
         projet.appendChild(trash);
       });
     });
+  //   delete project
+  const galleryModal = document.querySelector(".galleryModal");
+  galleryModal.addEventListener("click", function (e) {
+    const btn = e.target.closest(".deleteProject");
+    if (btn) {
+      const id = btn.dataset.id;
+      const token = localStorage.getItem("token");
+      // suppression du projet dans la base de données
+      fetch(`http://localhost:5678/api/works/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((response) => {
+        if (response.ok === true) {
+          mainGallery();
+          modal(); // rechargement de la modale
+        }
+      });
+    }
+  });
+  const ajoutPhoto = document.querySelector(".addProject");
+  ajoutPhoto.addEventListener("click", () => {
+    const modal = document.querySelector("#ajoutPhoto");
+    modal.style.display = "flex";
+    modalAjoutPhoto();
+
+    const close = document.querySelector(".modal");
+    close.style.display = "none";
+    catModal();
+  });
 }
 
-//   delete project
-const galleryModal = document.querySelector(".galleryModal");
-galleryModal.addEventListener("click", function (e) {
-  const btn = e.target.closest(".deleteProject");
-  if (btn) {
-    const id = btn.dataset.id;
+// modale ajouter une photo
+function modalAjoutPhoto() {
+  // Arrowback
+  const arrowback = document.querySelector(".arrowback");
+  arrowback.addEventListener("click", () => {
+    document.getElementById("ajoutPhoto").style.display = "none";
+    document.querySelector(".modal").style.display = "flex";
+  });
+
+  // Sélections des éléments
+  const fileInput = document.querySelector('.photo-upload input[type="file"]');
+  const imagePreview = document.getElementById("imagePreview");
+  const photopreview = document.getElementById("photo-upload-preview");
+  const uploadImage = document.querySelector(".photo-upload");
+  const form = document.querySelector("#ajoutPhoto form");
+  const btnValidate = form.querySelector(".btn-validate");
+  const titleInput = form.querySelector('input[type="text"]');
+  const catSelect = form.querySelector("select.modalCategories");
+
+  // Reset à chaque ouverture
+  imagePreview.src = "";
+  imagePreview.style.display = "none";
+  photopreview.style.display = "none";
+  uploadImage.style.display = "flex";
+  titleInput.value = "";
+  fileInput.value = "";
+  btnValidate.disabled = true;
+
+  // Aperçu image
+  fileInput.onchange = function (e) {
+    const file = e.target.files[0];
+    if (file && file.type.match("image.*")) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        imagePreview.src = event.target.result;
+        imagePreview.style.display = "block";
+        photopreview.style.display = "flex";
+        uploadImage.style.display = "none";
+      };
+      reader.readAsDataURL(file);
+    } else {
+      imagePreview.src = "";
+      imagePreview.style.display = "none";
+      photopreview.style.display = "flex";
+      uploadImage.style.display = "flex";
+    }
+    checkFormReady();
+  };
+
+  // Activation bouton submit
+  function checkFormReady() {
+    btnValidate.disabled = !(fileInput.files.length > 0 && titleInput.value.trim() !== "" && catSelect.value !== "");
+  }
+
+  // Ajoute la vérification sur chaque champ
+  [fileInput, titleInput, catSelect].forEach((input) => {
+    input.addEventListener("input", checkFormReady);
+    input.addEventListener("change", checkFormReady);
+  });
+  checkFormReady();
+
+  // Chargement des catégories
+  function catModal() {
+    fetch("http://localhost:5678/api/categories")
+      .then((response) => response.json())
+      .then((data) => {
+        catSelect.innerHTML = "";
+        data.forEach((category) => {
+          const option = document.createElement("option");
+          option.value = category.id;
+          option.innerText = category.name;
+          catSelect.appendChild(option);
+        });
+        checkFormReady();
+      });
+  }
+  catModal();
+  submitForm();
+}
+
+// Envoyer un projet vers l'api / Submit
+function submitForm() {
+  const submitForm = document.querySelector("#ajoutPhoto form");
+  submitForm.addEventListener("submit", (e) => {
+    e.preventDefault();
     const token = localStorage.getItem("token");
-    // suppression du projet dans la base de données
-    fetch(`http://localhost:5678/api/works/${id}`, {
-      method: "DELETE",
+    const image = document.querySelector('.photo-upload input[type="file"]').files[0];
+    const title = document.querySelector('input[type="text"]').value;
+    const category = document.querySelector("select.modalCategories").value;
+
+    const formData = new FormData();
+    formData.append("image", image); // <- Champ attendu par l'API
+    formData.append("title", title);
+    formData.append("category", category); // <- Champ attendu par l'API
+
+    fetch("http://localhost:5678/api/works", {
+      method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    }).then((response) => {
-      if (response.ok === true) {
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Erreur API");
+        return response.json();
+      })
+      .then((data) => {
         mainGallery();
-        modal(); // rechargement de la modale
-      }
-    });
-  }
-});
-
-// open modal
-const openModal = document.querySelector(".modifier");
-openModal.addEventListener("click", () => {
-  modal();
-  document.getElementById("modalEdition").style.display = "block";
-  document.querySelector(".modal").style.display = "flex";
-});
-
-// close modal
-const closeModal = document.querySelectorAll(".closeModal");
-closeModal.forEach((close) => {
-  close.addEventListener("click", () => {
-    document.getElementById("modalEdition").style.display = "none";
-    document.querySelector(".modal").style.display = "none";
-    document.getElementById("ajoutPhoto").style.display = "none";
-  });
-});
-
-function catModal() {
-  // catégories modale
-  const modalCategories = document.querySelector(".modalCategories");
-  fetch("http://localhost:5678/api/categories")
-    .then((response) => response.json())
-    .then((data) => {
-      modalCategories.innerHTML = "";
-      data.forEach((category) => {
-        const option = document.createElement("option");
-        option.value = category.id;
-        option.innerText = category.name;
-        modalCategories.appendChild(option);
+        modal(); // recharge la modale après ajout
+      })
+      .catch((err) => {
+        alert("Erreur lors de l'envoi du projet.");
       });
-    });
+  });
 }
-
-const arrowback = document.querySelector(".arrowback");
-arrowback.addEventListener("click", () => {
-  document.getElementById("ajoutPhoto").style.display = "none";
-  document.querySelector(".modal").style.display = "flex";
-});
-
+// Récupération des projets dans la page
 mainGallery();
 edition();
+modalDisplay();
