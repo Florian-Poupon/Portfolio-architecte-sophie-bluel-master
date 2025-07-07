@@ -107,6 +107,7 @@ section {
 }
 body {
   line-height: 1;
+  height: 100%;
 }
 ol,
 ul {
@@ -136,10 +137,21 @@ body {
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
+  background-color: #fffef8;
 }
+
+main {
+  flex: 1;
+  max-width: 950px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2em;
+}
+
 main,
-header,
-footer {
+header {
   max-width: 1140px;
   width: 100%;
 }
@@ -178,24 +190,32 @@ nav ul {
   display: flex;
   align-items: center;
   list-style-type: none;
+  gap: 2em;
 }
 nav li,
 nav li a {
   color: black;
-  padding: 0 10px;
   font-size: 16px;
   text-decoration: none;
+  width: 55px;
 }
 
 li:hover,
-li a:hover {
+li a:hover,
+li a.active {
   cursor: pointer;
   font-weight: 700;
   color: black;
 }
+
+#instagram {
+  font-size: 22px;
+}
+
 #introduction {
   display: flex;
   align-items: center;
+  gap: 80px;
 }
 #introduction figure {
   flex: 1;
@@ -203,7 +223,7 @@ li a:hover {
 #introduction img {
   display: block;
   margin: auto;
-  width: 80%;
+  width: 474px;
 }
 
 #introduction article {
@@ -219,6 +239,11 @@ li a:hover {
 #portfolio h2 {
   text-align: center;
 }
+#portfolio figcaption {
+  margin-top: 5px;
+  font-size: 13px;
+}
+
 .gallery {
   width: 100%;
   display: grid;
@@ -282,14 +307,14 @@ footer nav ul {
   display: flex;
   justify-content: center;
   margin-bottom: 2em;
-  padding: 1em;
+  padding: 3em 1em;
   gap: 1em;
 }
 
 button {
   border: solid 1px #1d6154;
   color: #1d6154;
-  background-color: white;
+  background-color: transparent;
   border-radius: 60px;
   font-size: 16px;
   font-weight: 700;
@@ -304,11 +329,12 @@ button.active {
 
 /* login */
 
-main {
+#login {
   display: flex;
+  height: fill-available;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 #login form {
@@ -410,6 +436,7 @@ i {
   font-weight: 400;
   color: black;
   border: none;
+  background-color: transparent;
 }
 
 .modifier:hover {
@@ -661,7 +688,33 @@ i {
 }
 
 #ajoutPhoto .btn-validate:enabled {
-  background: #1d6154;
   cursor: pointer;
   opacity: 1;
+}
+
+footer {
+  display: flex;
+  background-color: #ffffff;
+  width: 100%;
+  justify-content: center;
+}
+
+footer nav {
+  display: block;
+  max-width: 1140px;
+  width: 100%;
+}
+
+footer nav ul li {
+  width: fit-content;
+}
+
+/* scroll fluide */
+
+html {
+  scroll-behavior: smooth;
+}
+
+#portfolio {
+  scroll-margin-top: 30px;
 }
