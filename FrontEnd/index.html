@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <script src="script/script.js" defer></script>
   </head>
+
   <body>
     <!-- modal edition -->
     <div id="modalEdition">
@@ -72,7 +73,7 @@
           <li><a href="#contact">contact</a></li>
           <li id="login"><a href="login.html">login</a></li>
           <li id="logout">logout</li>
-          <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
+          <li><i class="fa-brands fa-instagram" id="instagram"></i></li>
         </ul>
       </nav>
     </header>
@@ -121,5 +122,20 @@
         </ul>
       </nav>
     </footer>
+
+    <!-- Scroll fluide vers l'ancre si un hash est présent dans l'URL -->
+    <script>
+      window.addEventListener("load", () => {
+        const hash = window.location.hash;
+        if (hash) {
+          const target = document.querySelector(hash);
+          if (target) {
+            setTimeout(() => {
+              target.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 50); // délai court pour attendre que la page soit bien rendue
+          }
+        }
+      });
+    </script>
   </body>
 </html>
