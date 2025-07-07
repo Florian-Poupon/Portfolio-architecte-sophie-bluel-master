@@ -56,15 +56,18 @@ function mainGallery() {
 // Affiche ou masque les boutons d'édition selon l'état de connexion
 function edition() {
   const edition = document.querySelectorAll(".edition");
+  const filterbox = document.querySelector(".filterBox");
   if (localStorage.getItem("token")) {
     edition.forEach((editButton) => {
       editButton.style.display = "block";
+      filterbox.classList.add("hidden");
     });
     document.getElementById("login").style.display = "none";
     document.getElementById("logout").style.display = "block";
   } else {
     edition.forEach((editButton) => {
       editButton.style.display = "none";
+      filterbox.classList.remove("hidden");
     });
     document.getElementById("login").style.display = "block";
     document.getElementById("logout").style.display = "none";
@@ -144,7 +147,6 @@ function modal() {
     modalAjoutPhoto();
     const close = document.querySelector(".modal");
     close.style.display = "none";
-    catModal();
   });
 }
 
@@ -167,7 +169,9 @@ function modalAjoutPhoto() {
   // Réinitialise le formulaire à chaque ouverture
   imagePreview.src = "";
   imagePreview.style.display = "none";
+  imagePreview.classList.add("hidden");
   photopreview.style.display = "none";
+  photopreview.classList.add("hidden");
   uploadImage.style.display = "flex";
   titleInput.value = "";
   fileInput.value = "";
@@ -180,14 +184,17 @@ function modalAjoutPhoto() {
       reader.onload = function (event) {
         imagePreview.src = event.target.result;
         imagePreview.style.display = "block";
+        imagePreview.classList.remove("hidden");
         photopreview.style.display = "flex";
+        photopreview.classList.remove("hidden");
         uploadImage.style.display = "none";
       };
       reader.readAsDataURL(file);
     } else {
       imagePreview.src = "";
       imagePreview.style.display = "none";
-      photopreview.style.display = "flex";
+      photopreview.style.display = "none";
+      photopreview.classList.add("hidden");
       uploadImage.style.display = "flex";
     }
     checkFormReady();
@@ -227,21 +234,42 @@ function submitForm() {
   if (!form) return;
   if (form.getAttribute("data-listener") === "true") return;
   form.setAttribute("data-listener", "true");
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    var fileInput = /** @type {HTMLInputElement} */ (form.querySelector('.photo-upload input[type="file"]'));
-    var titleInput = /** @type {HTMLInputElement} */ (form.querySelector('input[type="text"]'));
-    var catSelect = /** @type {HTMLSelectElement} */ (form.querySelector("select.modalCategories"));
+
+    const fileInput = form.querySelector('.photo-upload input[type="file"]');
+    const titleInput = form.querySelector('input[type="text"]');
+    const catSelect = form.querySelector("select.modalCategories");
+
     if (!fileInput || !titleInput || !catSelect) return;
-    var image = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
-    var title = titleInput.value;
-    var category = catSelect.value;
+
+    const image = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+    const title = titleInput.value.trim();
+    const category = catSelect.value;
+
     if (!image || !title || !category) return;
-    var formData = new FormData();
-    formData.append("image", image); // <- Champ attendu par l'API
+
+    //  Vérification du fichier
+    const allowedTypes = ["image/jpeg", "image/png"];
+    const maxSize = 4 * 1024 * 1024; // 4 Mo
+
+    if (!allowedTypes.includes(image.type)) {
+      alert("Fichier invalide : seuls les formats JPG ou PNG sont acceptés.");
+      return;
+    }
+
+    if (image.size > maxSize) {
+      alert("Fichier trop volumineux : 4 Mo maximum autorisé.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", image);
     formData.append("title", title);
-    formData.append("category", category); // <- Champ attendu par l'API
+    formData.append("category", category);
+
     fetch("http://localhost:5678/api/works", {
       method: "POST",
       headers: {
@@ -253,25 +281,44 @@ function submitForm() {
         if (!response.ok) throw new Error("Erreur API");
         return response.json();
       })
-      .then(function (data) {
+      .then(function () {
         mainGallery();
         modal(); // recharge la modale après ajout
-        // Réinitialise le formulaire et l'aperçu
-        /** @type {HTMLFormElement} */ (form).reset();
-        var imagePreview = document.getElementById("imagePreview");
-        var photopreview = document.getElementById("photo-upload-preview");
-        var uploadImage = /** @type {HTMLElement} */ (document.querySelector(".photo-upload"));
-        if (imagePreview) imagePreview.style.display = "none";
-        if (photopreview) photopreview.style.display = "none";
-        if (uploadImage) uploadImage.style.display = "flex";
+        resetAjoutForm();
       })
-      .catch(function (err) {
+      .catch(function () {
         alert("Erreur lors de l'envoi du projet.");
       });
   });
+}
+
+// Fonction pour réinitialiser le formulaire d'ajout de photo
+function resetAjoutForm() {
+  const form = document.querySelector("#ajoutPhoto form");
+  const imagePreview = document.getElementById("imagePreview");
+  const photoPreview = document.getElementById("photo-upload-preview");
+  const uploadImage = document.querySelector(".photo-upload");
+  const submitButton = document.querySelector(".btn-validate");
+
+  if (form) form.reset();
+  if (imagePreview) {
+    imagePreview.src = "";
+    imagePreview.classList.add("hidden");
+    imagePreview.style.display = "none";
+  }
+  if (photoPreview) {
+    photoPreview.classList.add("hidden");
+    photoPreview.style.display = "none";
+  }
+  if (uploadImage) {
+    uploadImage.classList.remove("hidden");
+    uploadImage.style.display = "flex";
+  }
+  if (submitButton) submitButton.disabled = true;
 }
 
 // Initialisation
 mainGallery();
 edition();
 modalDisplay();
+submitForm();

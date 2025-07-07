@@ -236,6 +236,16 @@ li a.active {
 #introduction p {
   margin-bottom: 0.5em;
 }
+
+/* section portfolio */
+
+#portfolio {
+  display: flex;
+  flex-direction: column;
+  scroll-margin-top: 30px;
+  gap: 3em;
+}
+
 #portfolio h2 {
   text-align: center;
 }
@@ -255,6 +265,9 @@ li a.active {
 .gallery img {
   width: 100%;
 }
+
+/* section contact */
+
 #contact {
   width: 50%;
   margin: auto;
@@ -307,7 +320,6 @@ footer nav ul {
   display: flex;
   justify-content: center;
   margin-bottom: 2em;
-  padding: 3em 1em;
   gap: 1em;
 }
 
@@ -331,7 +343,6 @@ button.active {
 
 #login {
   display: flex;
-  height: fill-available;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
@@ -448,6 +459,9 @@ i {
 }
 
 /* modale edition */
+.hidden {
+  display: none !important;
+}
 
 #modalEdition {
   display: none;
@@ -463,6 +477,10 @@ i {
 
   background: #0000004d;
   z-index: 10;
+}
+
+.modal {
+  max-height: 90vh;
 }
 
 .modal,
@@ -531,6 +549,7 @@ i {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 1em 0.3em;
+  overflow-y: scroll;
 }
 
 .galleryModal figure {
@@ -717,6 +736,13 @@ html {
   scroll-behavior: smooth;
 }
 
-#portfolio {
-  scroll-margin-top: 30px;
+.scrollable {
+  max-height: 375px;
+  overflow-y: auto;
+  padding-right: 5px;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #dbdbdb transparent;
+  scrollbar-border
 }
